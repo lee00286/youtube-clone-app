@@ -100,7 +100,7 @@ function VideoUploadPage(props) {
             category: Category,
             duration: Duration,
             thumbnail: ThumbnailPath
-        }
+        };
         
         Axios.post('api/video/uploadVideo', variables)
             .then(response => {
