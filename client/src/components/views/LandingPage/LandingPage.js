@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { FaCode } from "react-icons/fa";
 
 function LandingPage() {
@@ -10,7 +10,7 @@ function LandingPage() {
             </div>
             <div style={{ float: 'right' }}>Thanks For Using This Boiler Plate by John Ahn</div>
         </>
-    )
+    );
 }
 
-export default LandingPage
+export default LandingPage;
