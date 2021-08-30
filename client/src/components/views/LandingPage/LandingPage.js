@@ -1,28 +1,28 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaCode } from "react-icons/fa";
-import { Card, Avatar, Col, Typography, Row} from 'antd';
 import moment from 'moment';
 import Axios from 'axios';
+
+import { Card, Avatar, Col, Typography, Row} from 'antd';
 const { Title } = Typography;
 const { Meta } = Card;
 
 function LandingPage() {
-
-    const [Video, setVideo] = useState([]);
+    const [Videos, setVideos] = useState([]);
 
     useEffect(() => {
         Axios.get('/api/video/getVideos')
-        .then(response => {
-            if (response.data.success) {
-                console.log(response.data);
-                setVideo(response.data);
-            } else {
-                alert('비디오 가져오기를 실패 했습니다.');
-            }
-        })
+            .then(response => {
+                if (response.data.success) {
+                    console.log(response.data.videos);
+                    setVideos(response.data.videos);
+                } else {
+                    alert('비디오 가져오기를 실패 했습니다.');
+                }
+            });
     }, []);
 
-    const renderCards = Video.map((video, index) => {
+    const renderCards = Videos.map((video, index) => {
         var minutes = Math.floor(video.duration / 60);
         var seconds = Math.floor((video.duration - minutes * 60));
 
@@ -38,7 +38,7 @@ function LandingPage() {
             <br />
             <Meta
                 avatar={
-                    <Avatar src={VideoPlaybackQuality.writer.image} />
+                    <Avatar src={video.writer.image} />
                 }
                 title={video.title}
                 description=""
@@ -54,7 +54,6 @@ function LandingPage() {
             <hr />
             <Row gutter={[32, 16]}>
                 {renderCards}
-                
             </Row>
         </div>
     );

@@ -14,7 +14,7 @@ function SideVideo() {
                     alert('비디오를 가져오는 걸 실패 했습니다.');
                 };
             });
-    }, [input]);
+    }, []);
 
     const renderSideVideo = sideVideos.map((video, index) => {
         var minutes = Math.floor(video.duration / 60);

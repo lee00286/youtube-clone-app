@@ -66,17 +66,18 @@ function VideoUploadPage(props) {
             .then(response => {
                 if (response.data.success) {
                     let variable = {
-                        url: response.data.url,
+                        filePath: response.data.filePath,
                         fileName: response.data.fileName
                     };
 
-                    setFilePath(response.data.url);
+                    setFilePath(response.data.filePath);
 
+                    // Generate thumbnail with this filePath
                     Axios.post('/api/video/thumbnail', variable)
                         .then(response => {
                             if (response.data.success) {
                                 setDuration(response.data.fileDuration);
-                                setThumbnailPath(response.data.url);
+                                setThumbnailPath(response.data.thumbsFilePath);
                             }
                             else {
                                 alert('썸네일 생성에 실패 했습니다.');
@@ -102,7 +103,7 @@ function VideoUploadPage(props) {
             thumbnail: ThumbnailPath
         };
         
-        Axios.post('api/video/uploadVideo', variables)
+        Axios.post('/api/video/uploadVideo', variables)
             .then(response => {
                 if (response.data.success) {
                     message.success('성공적으로 업로드를 했습니다.');
