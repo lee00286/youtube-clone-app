@@ -4,6 +4,7 @@ const multer = require('multer');
 var ffmpeg = require('fluent-ffmpeg');
 
 const { Video } = require("../models/Video");
+const { Subscriber } = require('../models/Subscriber');
 const { auth } = require("../middleware/auth");
 
 // STORAGE MULTER CONFIG
@@ -105,5 +106,26 @@ router.post('/uploadVideo', (req, res) => {
         return res.status(200).json({ success: true });
     });
 });
+
+router.post('/getSubscriptionVideos', (req, res) => {
+    // userFrom을 이용해 구독중인 사람들을 찾음
+    Subscriber.find({ userFrom: req.body.userFrom })
+        .exec((err, subscriberInfo) => {
+            if (err) return res.status(400).send(err);
+            
+            // 구독중인 사람들은 subscriber.userTo에 해당함
+            let subscribedUser = []; // userTo array
+            subscriberInfo.map((subscriber, i) => {
+                subscribedUser.push(subscriber.userTo);
+            });
+            // userTo를 이용해 구독중인 사람들의 비디오를 가지고 옴
+            Video.find({ writer: { $in: subscribedUser } }) // 구독중인 사람이 여러 명일 수 있으므로 MongoDB의 $in 메소드 사용
+                .populate('writer')
+                .exec((err, videos) => {
+                    if (err) return res.status(400).send(err);
+                    return res.status(200).json({ success: true, videos });
+                });
+        });
+})
 
 module.exports = router;
