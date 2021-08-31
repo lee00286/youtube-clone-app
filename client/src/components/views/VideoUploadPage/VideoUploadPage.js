@@ -37,20 +37,20 @@ function VideoUploadPage(props) {
     const [ThumbnailPath, setThumbnailPath] = useState("");
 
     // VideoTitle의 값을 변경
-    const onTitleChange = (e) => { // e는 이벤트
-        setVideoTitle(e.currentTarget.value); // e.currentTarget은 입력창에 입력된 텍스트 값을 가짐
+    const onTitleChange = (event) => {
+        setVideoTitle(event.currentTarget.value); // event.currentTarget은 입력창에 입력된 텍스트 값을 가짐
     };
     // Description의 값을 변경
-    const onDescriptionChange = (e) => {
-        setDescription(e.currentTarget.value);
+    const onDescriptionChange = (event) => {
+        setDescription(event.currentTarget.value);
     };
     // Private의 값을 변경
-    const onPrivateChange = (e) => { // e는 이벤트
-        setPrivate(e.currentTarget.value); // e.currentTarget은 입력창에 입력된 텍스트 값을 가짐
+    const onPrivateChange = (event) => {
+        setPrivate(event.currentTarget.value); // event.currentTarget은 입력창에 입력된 텍스트 값을 가짐
     };
     // Category의 값을 변경
-    const onCategoryChange = (e) => {
-        setCategory(e.currentTarget.value);
+    const onCategoryChange = (event) => {
+        setCategory(event.currentTarget.value);
     };
 
     // 비디오 업로드하는 함수
@@ -89,8 +89,8 @@ function VideoUploadPage(props) {
             });
     };
 
-    const onSubmit = (e) => {
-        e.preventDefault(); // 클릭하면 하려고 했던 걸 방지하고 아래의 코드 실행
+    const onSubmit = (event) => {
+        event.preventDefault(); // 클릭하면 하려고 했던 걸 방지하고 아래의 코드 실행
 
         const variables = {
             writer: user.userData._id,

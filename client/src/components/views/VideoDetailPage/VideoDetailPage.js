@@ -34,6 +34,7 @@ function VideoDetailPage(props) {
             })
     }, []);
 
+    // 댓글 리스트에 새 댓글 추가
     const refreshFunction = (newComment) => {
         setComments(Comments.concat(newComment));
     };

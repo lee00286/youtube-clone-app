@@ -8,7 +8,7 @@ const { auth } = require("../middleware/auth");
 //             Comment
 //=================================
 
-// 작성한 커멘트를 저장
+// 작성한 댓글을 저장
 router.post('/saveComment', (req, res) => {
     const comment = new Comment(req.body);
     comment.save((err, comment) => {
@@ -22,11 +22,11 @@ router.post('/saveComment', (req, res) => {
     });
 });
 
-// 작성된 커멘트를 가져옴
+// 작성된 댓글을 가져옴
 router.post('/getComments', (req, res) => {
     Comment.find({ "postId": req.body.videoId })
         .populate('writer')
-        .exec((err, comments ) => {
+        .exec((err, comments) => {
             if (err) return res.status(400).send(err);
             return res.status(200).json({ success: true, comments });
         });
